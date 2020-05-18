@@ -13,4 +13,7 @@ To describe the alignment task, I have arranged three tables, which show a sampl
 
 For bootstrapping, POS projections from the source langauge to the target language are made and then smoothed. This results in training data for the target language, which can then be used to train a neural tagger such as UDPipe (or any other type of tagger). The original treebank files have not been added for copyright issues.
 
-This project is still ongoing. For more detail, see this [link](https://drive.google.com/open?id=13nZc0RbOss4Qh-y8uzIncJOI4xtlOZYN).
+This project mimicks what is done in Yarowsky and Ngai, (2001) and is still ongoing. For more detail, see this [link](https://drive.google.com/open?id=13nZc0RbOss4Qh-y8uzIncJOI4xtlOZYN).
+
+## References
+Yarowsky, David & Ngai, Grace. (2001). Inducing Multilingual POS Taggers and NP Bracketers via Robust Projection Across Aligned Corpora.. 10.3115/1073336.1073362. 
