@@ -1,8 +1,8 @@
 # Recurrent Neural Network Applications and Implementations
 
 ## Neural Lemmatizer
-* `lemmatizer_att.py`: Lemmatizer network implementation using an encoder-decoder architecture with an additional attention mechanism
-* `lemmatizer_task.py`: main of `lemmatizer_att.py`
+* `lemmatizer_att.py`: Lemmatizer network implementation using an encoder-decoder architecture with an additional attention mechanism (Bahdanau attention).
+* `lemmatizer_task.py`: main of `lemmatizer_att.py`.
 
 ## Neural Tagger
 * `tagger_cle_rnn.py`: Tagger which uses both word and character-level embeddings, and bidirectional RNNs with memory units.
