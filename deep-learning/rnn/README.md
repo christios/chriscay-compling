@@ -11,4 +11,4 @@
 * `sequence_classification.py`: The network processes sequences of 50 small integers and computes parity for each prefix of the sequence. Summaries are written to Tensorboard to observe the effect of the <i>exploding gradient</i> problem.
 
 ## Speech Recognition
-* Mel-frequency cepstral coefficients are fed into the network for each input clip. Then the CTC loss is computed alongside beam-search decoding.
+* `speech_recognition`: Mel-frequency cepstral coefficients are fed into the network for each input clip. Then the CTC loss is computed alongside beam-search decoding.
