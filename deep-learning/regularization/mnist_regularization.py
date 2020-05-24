@@ -18,7 +18,6 @@ if __name__ == "__main__":
     parser.add_argument("--hidden_layers", default="500", type=str, help="Hidden layer configuration.")
     parser.add_argument("--l2", default=0, type=float, help="L2 regularization.")
     parser.add_argument("--label_smoothing", default=0, type=float, help="Label smoothing.")
-    parser.add_argument("--recodex", default=False, action="store_true", help="Evaluation in ReCodEx.")
     parser.add_argument("--seed", default=42, type=int, help="Random seed.")
     parser.add_argument("--threads", default=1, type=int, help="Maximum number of threads to use.")
     parser.add_argument("--verbose", default=False, action="store_true", help="Verbose TF logging.")
@@ -30,10 +29,6 @@ if __name__ == "__main__":
     tf.random.set_seed(args.seed)
     tf.config.threading.set_inter_op_parallelism_threads(args.threads)
     tf.config.threading.set_intra_op_parallelism_threads(args.threads)
-    if args.recodex:
-        tf.keras.utils.get_custom_objects()["glorot_uniform"] = tf.initializers.GlorotUniform(seed=args.seed)
-        tf.keras.utils.get_custom_objects()["orthogonal"] = tf.initializers.Orthogonal(seed=args.seed)
-        tf.keras.utils.get_custom_objects()["uniform"] = tf.initializers.RandomUniform(seed=args.seed)
 
     # Report only errors by default
     if not args.verbose:
