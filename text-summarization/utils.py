@@ -1,8 +1,6 @@
 __author__ = 'prem'
 
-import numpy
-from nltk.stem.porter import PorterStemmer
-from nltk.stem.wordnet import WordNetLemmatizer
+import numpy as np
 from nltk.corpus import stopwords
 import re
 
@@ -18,7 +16,7 @@ def term_freq(wordlist):
 
 def idf(n, docfreq):
     """ Computes the inverse document frequency """
-    return numpy.log10(numpy.reciprocal(docfreq) * n)
+    return np.log10(np.reciprocal(docfreq) * n)
 
 def create_index(analysis):
     token_to_entity = {}
@@ -44,8 +42,10 @@ def read_doc(sentence_info, token_to_entity={}, entity=False):
             words = [e.stdForm for e in entities]
             return (sent_id, words)
     else:
+        sw = stopwords.words('english')
         if 10 < len(sentence_info.tokens) < 30:
-            return (sent_id, [t.lemma for t in sentence_info.tokens])
+            words = [t.lemma for t in sentence_info.tokens if t.lemma not in sw]
+            return (sent_id, words)
 
 def extract_sentences(VT, S, data_split_raw, columnheader, k=5, n=10):
     """
@@ -53,7 +53,7 @@ def extract_sentences(VT, S, data_split_raw, columnheader, k=5, n=10):
     a list of n sentences which are the most prominent sentences related to that concept.
     """
     concepts = []
-    sentences_len = numpy.add.reduce((numpy.square(VT[:k, ]).T * S[:k]).T)
+    sentences_len = np.add.reduce((np.square(VT[:k, ]).T * S[:k]).T)
     sentences_len_sorted = sentences_len.argsort()[::-1]
     sentences = (data_split_raw[columnheader[sentence_id]]
                  for sentence_id in sentences_len_sorted)
