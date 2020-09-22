@@ -2,9 +2,11 @@
 
 Text summarization module which performs LSA to produce sentences extracted from the text which represent it the most. LSA uses Singular Value Decomposition (SVD), and then uses the VT matrix produced by SVD (the columns of which represent the sentences) to extract sentences from the text.
 
-![svd](./assets/svd.png)
+<p align="center">
+  <img width="70%" height="70%" src="./assets/svd.png">
+</p>
 
-Code is based on [4].
+Note: Code is based on [4].
 
 ## Usage
 
