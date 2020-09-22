@@ -4,7 +4,7 @@ Text summarization module which performs LSA to produce sentences extracted from
 
 ![svd](./assets/svd.png)
 
-Based on https://github.com/iamprem/summarizer/blob/master/tfidf2.py
+Code is based on [4].
 
 ## Usage
 
@@ -32,3 +32,5 @@ Based on https://github.com/iamprem/summarizer/blob/master/tfidf2.py
 [2]J. Steinberger and K. Ježek, "Using Latent Semantic Analysis in Text Summarization and Summary Evaluation", 2004. Available: http://www.kiv.zcu.cz/~jstein/publikace/isim2004.pdf.
 
 [3]M. Ozsoy, I. Cicekli and F. Alpaslan, "Text Summarization of Turkish Texts using Latent Semantic Analysis", 2010. Available: https://www.aclweb.org/anthology/C10-1098.pdf. [Accessed 22 September 2020].
+
+[4]"iamprem/summarizer", GitHub, 2020. [Online]. Available: https://github.com/iamprem/summarizer.
