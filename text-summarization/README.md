@@ -1,0 +1,1 @@
+Text summarization module which performs LSA to find produce sentences which represent the text the most.
