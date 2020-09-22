@@ -10,7 +10,7 @@ Based on https://github.com/iamprem/summarizer/blob/master/tfidf2.py
 
     `python3 lsa.py -i <input-file> --api-key <g3 api-key> [-e]`
 
-- If you just want to test the module using an existing g3.Analysis file,:
+- If you just want to test the module using an existing g3.Analysis file (an example g3.Analysis object is present in this repository called `analysis.json`):
     
     `python3 lsa.py -t <analysis.json> [-e]`
 
