@@ -16,11 +16,11 @@ if __name__ == "__main__":
     parser.add_argument('--api-key', dest='api_key',  type=str,
                         help='API key for the g3 client.')
     parser.add_argument('-t', '--test', dest='test',  type=str,
-                        help='If used, then analysis is loaded and not performed')
+                        help='If used, then analysis is loaded and not performed.')
     parser.add_argument("--sentences", "-s", default=True, action="store_true",
-                        help="Extract key sentences")
-    parser.add_argument("--keywords", "-k", default=False, action="store_true",
-                        help="Extract keywords")
+                        help="Extract key sentences.")
+    parser.add_argument("--entity", "-e", default=False, action="store_true",
+                        help="Rows of the A matrix will represent extracted entities instead of tokens.")
     args = parser.parse_args()
 
     USER_KEY = args.api_key
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     token_to_entity = create_index(analysis)
     data_split = [sent for sent in analysis.paragraphs[0].sentences]
     for sentence in data_split:
-        sent = read_doc(sentence, token_to_entity) # Here a document is a sentence
+        sent = read_doc(sentence, token_to_entity, entity=args.entity) # Here a document is a sentence
         if sent:
             documents.append(sent)
             data_split_raw[sentence._id] = sentence.origText
@@ -90,12 +90,11 @@ if __name__ == "__main__":
     A = A * idfvector
     result = []
     # Singular Value Decomposition on the tfidf matrix
-    if not args.keywords:
-        # Summary Sentences - Extraction
-        U, S, VT = np.linalg.svd(A, full_matrices=0)
-        sentences = extract_sentences(VT, S, data_split_raw, columnheader)
-        # for i,concept in enumerate(concepts):
-        for j,sent in enumerate(sentences):
-            result.append('[Sentence '+str(j+1)+'] :\t'+str(sent))
-            print ('[Sentence '+str(j+1)+'] :\t'+str(sent)) #Final Summary
-        print ('\n')
+    # Summary Sentences - Extraction
+    U, S, VT = np.linalg.svd(A, full_matrices=0)
+    sentences = extract_sentences(VT, S, data_split_raw, columnheader)
+    # for i,concept in enumerate(concepts):
+    for j,sent in enumerate(sentences):
+        result.append('[Sentence '+str(j+1)+'] :\t'+str(sent))
+        print ('[Sentence '+str(j+1)+'] :\t'+str(sent)) #Final Summary
+    print ('\n')
