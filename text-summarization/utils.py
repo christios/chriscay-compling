@@ -1,5 +1,3 @@
-__author__ = 'prem'
-
 import numpy as np
 from nltk.corpus import stopwords
 import re
