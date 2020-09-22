@@ -1,6 +1,8 @@
 # Text Summarization
 
-Text summarization module which performs LSA to find produce sentences which represent the text the most.
+Text summarization module which performs LSA to produce sentences extracted from the text which represent it the most. LSA uses Singular Value Decomposition (SVD), and then uses the VT matrix produced by SVD (the columns of which represent the sentences) to extract sentences from the text.
+
+![svd](./assets/svd.png)
 
 Based on https://github.com/iamprem/summarizer/blob/master/tfidf2.py
 
@@ -21,6 +23,7 @@ Based on https://github.com/iamprem/summarizer/blob/master/tfidf2.py
 - Tweak the parameters which decide which sentences will be disregarded (it heavily affects the results)
 - The `-e` mode is yielding bad results; consider changing the way indexing is done (e.g, take POS and relations into account in addition to entity information)
 - Change the way the score of a sentence if calculated based on the Cross Method from [3].
+- Perform testing using some dataset and the ROUGE score
 
 ## References
 
