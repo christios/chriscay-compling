@@ -47,8 +47,8 @@ def read_doc(sentence_info, token_to_entity={}, entity=False):
 
 def extract_sentences(VT, S, data_split_raw, columnheader, k=5, n=10):
     """
-    Returns a list of k concepts (represented by the rows of VT). Each concept is
-    a list of n sentences which are the most prominent sentences related to that concept.
+    Returns a list of n sentences (represented by the columns of VT).
+    k concepts are used.
     """
     concepts = []
     sentences_len = np.add.reduce((np.square(VT[:k, ]).T * S[:k]).T)

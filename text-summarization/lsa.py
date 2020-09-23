@@ -88,13 +88,12 @@ if __name__ == "__main__":
     idfvector = np.array(np.transpose(idfvector))
     idfvector = np.reshape(idfvector, (-1,1))
     A = A * idfvector
-    result = []
+
     # Singular Value Decomposition on the tfidf matrix
     # Summary Sentences - Extraction
     U, S, VT = np.linalg.svd(A, full_matrices=0)
     sentences = extract_sentences(VT, S, data_split_raw, columnheader)
     # for i,concept in enumerate(concepts):
-    for j,sent in enumerate(sentences):
-        result.append('[Sentence '+str(j+1)+'] :\t'+str(sent))
-        print ('[Sentence '+str(j+1)+'] :\t'+str(sent)) #Final Summary
+    for i,sent in enumerate(sentences):
+        print ('[Sentence '+str(i+1)+'] :\t'+str(sent)) #Final Summary
     print ('\n')
