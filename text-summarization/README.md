@@ -6,8 +6,8 @@ Text summarization module which performs LSA to produce sentences extracted from
   <img width="50%" height="50%" src="./assets/svd.png">
 </p>
 
-Consider the words *car*, *automobile*, *driver*, and *elephant*. The terms *car* and *automobile* are synonyms, *driver* is a related concept and *elephant* is unrelated. In most retrieval systems, the query automobiles is no more likely to retrieve documents about cars than documents about elephants, if neither used precisely the term *automobile* in the documents. It would be preferable if a query about automobiles also retrieved articles about cars and even articles about drivers to a lesser extent. The derived k-dimensional feature space can represent these useful term inter-relationships. Roughly speaking, the words *car* and *automobile* will occur with many of the same words (e.g. motor, model, vehicle, chassis, carmakers, sedan, engine, etc.), and they will have similar representations in k-space. The contexts for *driver* will overlap to a lesser extent, and those for *elephant* will be quite dissimilar. The main idea in LSI is to explicitly model the interrelationships among terms (using the truncated
-SVD) and to exploit this to improve retrieval [1].
+"Consider the words *car*, *automobile*, *driver*, and *elephant*. The terms *car* and *automobile* are synonyms, *driver* is a related concept and *elephant* is unrelated. In most retrieval systems, the query automobiles is no more likely to retrieve documents about cars than documents about elephants, if neither used precisely the term *automobile* in the documents. It would be preferable if a query about automobiles also retrieved articles about cars and even articles about drivers to a lesser extent. The derived k-dimensional feature space can represent these useful term inter-relationships. Roughly speaking, the words *car* and *automobile* will occur with many of the same words (e.g. motor, model, vehicle, chassis, carmakers, sedan, engine, etc.), and they will have similar representations in k-space. The contexts for *driver* will overlap to a lesser extent, and those for *elephant* will be quite dissimilar. The main idea in LSI is to explicitly model the interrelationships among terms (using the truncated
+SVD) and to exploit this to improve retrieval." [1]
 
 Note: Code is based on [4] which is in turn based on [2].
 
@@ -30,6 +30,8 @@ Note: Code is based on [4] which is in turn based on [2].
 - Change the way the score of a sentence if calculated based on the Cross Method from [3].
 - Perform testing using some dataset and the ROUGE score [5].
 - [6] contains a comprehensive list of resources related to text summarization.
+- Could potentially include user defined weights which will decide what kind of entities to focus on the most (person, location, etc.) for the summary, and this can be implemented by incorporating those weights into the sentence score.
+- Could use relations features (e.g., verbs are generally packed with the most information for a summary, so increase their weight manually in the tf-idf matrix).
 
 ## References
 
