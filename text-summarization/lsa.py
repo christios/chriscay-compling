@@ -11,7 +11,6 @@ from geneeanlpclient import g3
 from geneea.sdkplus.client import AdvancedClient
 from geneea.sdkplus.request import RequestBuilder
 
-import christiosutilities
 from sumeval.metrics.rouge import RougeCalculator
 
 Document = Tuple[str, Tuple[str, List[str]]]
