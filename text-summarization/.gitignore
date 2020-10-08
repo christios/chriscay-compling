@@ -1,1 +1,11 @@
 *.pyc
+launch.json
+*.code-workspace
+test.*
+sumy_example.py
+*.csv
+*.json
+/cnn-dailymail-master
+*.txt
+*.json
+makefile
