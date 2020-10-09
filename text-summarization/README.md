@@ -15,20 +15,30 @@ Note: Code is based on [4] which is in turn based on [2].
 
 - If you want to analyze your own document:
 
-    `python3 lsa.py -i <input-file> --api-key <g3 api-key> [-e]`
+    `python3 lsa.py -i <input-file>`
 
 - If you just want to test the module using an existing g3.Analysis file (an example g3.Analysis object is present in this repository called `analysis.json`):
     
-    `python3 lsa.py -t <analysis.json> [-e]`
+    `python3 lsa.py -t <analysis.json>`
 
-    *Note: If you want the analysis to be based on entities rather than tokens, add the `-e` flag.*
+- Any of the following flags can be used:
+  - `-eval`, `--evaluation`: Path of the reference file to compare against.
+  - `-s`, `--save`: If an analysis on an input file was performed, saves it in the specified output file's name for future use. To use in conjunction with `-i`.
+  - `-n`: Number of sentences used in the summary.
+  - `-c`, `--cell-type`: Type of values to be used for the cells of the A matrix; current options: *tf* or *tfidf*.
+  - `-lang`, `--language`: Language of the article (no format, just the name of the language).
+  - `-l`, `--length`: Length of sentences to consider for the A matrix; format: *min_length,max_length*.
+  - `-e`, `--entity`: Rows of the A matrix will represent extracted entities instead of tokens.
+  - `-rel`, `--relations`: Relations will be included in the computation of the A matrix. Only supported in Czech and English.
+  - `-p`, `--print`: Print the chosen sentences to the default output stream.
+
 
 ## TODO
 
 - The `-e` mode is yielding bad results
   - Find a way to include entities into the features without adding redundancy (not just concatenation) ✅
   - Could potentially include user defined weights which will decide what kind of entities to focus on the most (person, location, etc.) for the summary, and this can be implemented by incorporating those weights into the sentence score.
-  
+
 - Change the way the score of a sentence if calculated based on the Cross Method from [3] ✅
 - Perform testing using some dataset and the ROUGE score [5] ✅
 

@@ -116,12 +116,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-i', '--input', dest='infile',  type=str,
                         help='Path of the input file to the script.')
-    parser.add_argument('-r', '--reference', dest='reference',  type=str,
+    parser.add_argument('-eval', '--evaluation', dest='evaluation',  type=str,
                         help='Path of the reference file to compare against.')
     parser.add_argument('-t', '--test', dest='test',  type=str,
                         help='Path of an article\'s analysis file to use instead of the article itself. Cannot be used at the same time with -i.')
-    parser.add_argument('-eval', '--evaluation', default=False, action="store_true",
-                        help='To perform evaluation against a reference summary.')
     parser.add_argument('-s', '--save', dest='save',  type=str,
                         help='If an analysis on an input file was performed, saves it. To use in conjunction with -i.')
     parser.add_argument('-n', dest='n',  type=int, default=10,
@@ -169,8 +167,7 @@ if __name__ == "__main__":
         print('\n')
 
     if args.evaluation:
-        assert args.reference, f'Need a reference to compare against.'
-        with open(args.reference) as fh:
+        with open(args.evaluation) as fh:
             reference = fh.read()
         rouge = RougeCalculator(stopwords=True, lang='en')
         rouge_n = rouge.rouge_n(
