@@ -11,8 +11,6 @@ from geneeanlpclient import g3
 from geneea.sdkplus.client import AdvancedClient
 from geneea.sdkplus.request import RequestBuilder
 
-from sumeval.metrics.rouge import RougeCalculator
-
 Document = Tuple[str, Tuple[str, List[str]]]
 DocumentsRaw = Dict[str, str]
 LANGUAGE = {'english': 'en',
@@ -167,6 +165,7 @@ if __name__ == "__main__":
         print('\n')
 
     if args.evaluation:
+        from sumeval.metrics.rouge import RougeCalculator
         with open(args.evaluation) as fh:
             reference = fh.read()
         rouge = RougeCalculator(stopwords=True, lang='en')
