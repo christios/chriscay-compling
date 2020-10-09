@@ -36,6 +36,7 @@ def term_freq(wordlist: List[Tuple[str, List[str]]],
     if cell_type == 'tfidf':
         for term in wordlist:
             tf[term[0]] = tf.get(term[0], 0.0) + 1.0
+    # Term frequency is calculated w.r.t. the whole article and not individual sentences.
     elif cell_type == 'tf':
         for term in wordlist:
             tf[term[0]] = freq_list[term[0]]
@@ -70,17 +71,17 @@ def create_index(analysis: g3.Analysis) -> Tuple[Dict[str, g3.Entity], Dict[str,
             sent_to_token_to_rel.setdefault(sent_id, {})[
                 support.tectoToken.tokens[-1]._id] = args
 
-    token_to_entity: Dict[str, g3.Entity] = {}
+    token_to_mention: Dict[str, g3.Entity] = {}
     for e in analysis.entities:
         for m in e.mentions:
             for t in m.tokens:
-                token_to_entity.setdefault(t._id, []).append(e)
+                token_to_mention[t._id] = m
 
-    return token_to_entity, sent_to_token_to_rel
+    return token_to_mention, sent_to_token_to_rel
 
 
 def read_doc(sentence_info,
-             token_to_entity={},
+             token_to_mention={},
              sent_to_token_to_rel={},
              entity=False,
              minimum=1,
@@ -90,27 +91,37 @@ def read_doc(sentence_info,
         else, it splits it into a word list of entites.
         Note: Disregards sentences with less than `minimum` and more than `maximum` words (30 words
         when not in entity mode)."""
-    sent_id: str = sentence_info._id
-    words: List[Tuple[str, List[str]]] = []
-    if entity:
-        # Currently not functional, but ultimately entities should be taken into account
-        if minimum < len(sentence_info.tokens) < maximum:
-            entities = []
-            for t in sentence_info.tokens:
-                if t._id in token_to_entity:
-                    entities.append(token_to_entity[t._id] if isinstance(
-                        token_to_entity[t._id], str) else token_to_entity[t._id][0])
-            #TODO: update the type of `words` so as to match List[Tuple[str, List[str]]]
-            words = [e.stdForm for e in entities]
 
+    sw = stopwords.words(lang)
+    sent_id: str = sentence_info._id
+    words_temp: List[Tuple[str, List[str], str]] = []
+    relations: Dict[str, List[str]] = sent_to_token_to_rel.get(sent_id)
+    if entity:
+        if minimum < len(sentence_info.tokens) < maximum:
+            for t in sentence_info.tokens:
+                if t._id in token_to_mention:
+                    m = token_to_mention[t._id]
+                    words_temp.append((m.mentionOf.stdForm, relations.get(
+                        t._id) if relations else None, m._id))
+                else:
+                    if t.deepLemma not in sw and not any(p in t.deepLemma for p in punctuation):
+                        words_temp.append((t.deepLemma, relations.get(
+                            t._id) if relations else None, None))
+                    
+            words_unique_mention: List[Tuple[str, List[str], str]] = []
+            for word in words_temp:
+                if word[2] and word[2] not in [w[2] for w in words_unique_mention]:
+                    words_unique_mention.append(word)
+                elif not word[2]:
+                    words_unique_mention.append(word)
+            words: List[Tuple[str, List[str]]] = [w[:-1] for w in words_unique_mention]
         else:
             return
     else:
-        relations: Dict[str, List[str]] = sent_to_token_to_rel.get(sent_id)
-        sw = stopwords.words(lang)
         if minimum < len(sentence_info.tokens) < maximum:
             words: List[Tuple[str, List[str]]] = [(t.deepLemma, relations.get(t._id) if relations else None)
-                                                  for t in sentence_info.tokens if (not any(p in t.deepLemma for p in punctuation))
+                                                  for t in sentence_info.tokens if (t.deepLemma not in sw and
+                                                  not any(p in t.deepLemma for p in punctuation))
                                                   ]
         else:
             return

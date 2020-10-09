@@ -57,11 +57,11 @@ def prepare_data(infile: str = '',
         with open(test, 'r') as fp:
             analysis = g3.reader.fromDict(json.load(fp))
 
-    token_to_entity, sent_to_token_to_rel = utils.create_index(analysis)
+    token_to_mention, sent_to_token_to_rel = utils.create_index(analysis)
     data_split = [sent for sent in analysis.paragraphs[0].sentences]
     for sentence in data_split:
         # Here a document is a sentence, and `sent` is a tuple as so: sent = (snet_id, wordlist)
-        sent = utils.read_doc(sentence, token_to_entity, sent_to_token_to_rel,
+        sent = utils.read_doc(sentence, token_to_mention, sent_to_token_to_rel,
                               entity=entity, minimum=minimum, maximum=maximum, lang=lang)
         if sent:
             documents.append(sent)

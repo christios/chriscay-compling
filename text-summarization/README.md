@@ -25,15 +25,20 @@ Note: Code is based on [4] which is in turn based on [2].
 
 ## TODO
 
-- The `-e` mode is yielding bad results; consider changing the way indexing is done (e.g, take POS and relations into account in addition to entity information).
+- The `-e` mode is yielding bad results
+  - Find a way to include entities into the features without adding redundancy (not just concatenation) ✅
   - Could potentially include user defined weights which will decide what kind of entities to focus on the most (person, location, etc.) for the summary, and this can be implemented by incorporating those weights into the sentence score.
-  - Concatenate entities with other features.
+  
 - Change the way the score of a sentence if calculated based on the Cross Method from [3] ✅
 - Perform testing using some dataset and the ROUGE score [5] ✅
 
 - Could use relations features (e.g., verbs are generally packed with the most information for a summary, so increase their weight manually in the tf-idf matrix) ✅
 
 - If some structure of the document is available, give more weight to first and last sentence of each paragraph.
+
+- Include a co-reference resolution module which could replace pronouns by their correct object after sentences are extracted, so that the summary will appear more fluid.
+
+- Could take POS into account (e.g., if token is root then, add more weight)
 
 ## References
 
