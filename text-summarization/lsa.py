@@ -115,7 +115,7 @@ if __name__ == "__main__":
     parser.add_argument('-i', '--input', dest='infile',  type=str,
                         help='Path of the input file to the script.')
     parser.add_argument('-eval', '--evaluation', dest='evaluation',  type=str,
-                        help='Path of the reference file to compare against.')
+                        help='Path of the reference file to compare against. Computes the Rouge1 score')
     parser.add_argument('-t', '--test', dest='test',  type=str,
                         help='Path of an article\'s analysis file to use instead of the article itself. Cannot be used at the same time with -i.')
     parser.add_argument('-s', '--save', dest='save',  type=str,

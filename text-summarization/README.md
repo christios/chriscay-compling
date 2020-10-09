@@ -22,7 +22,7 @@ Note: Code is based on [4] which is in turn based on [2].
     `python3 lsa.py -t <analysis.json>`
 
 - Any of the following flags can be used:
-  - `-eval`, `--evaluation`: Path of the reference file to compare against; evaluation requires the `sumeval` package.
+  - `-eval`, `--evaluation`: Path of the reference file to compare against (computes the Rouge1 score); evaluation requires the `sumeval` package.
   - `-s`, `--save`: If an analysis on an input file was performed, saves it in the specified output file's name for future use. To use in conjunction with `-i`.
   - `-n`: Number of sentences used in the summary.
   - `-c`, `--cell-type`: Type of values to be used for the cells of the A matrix; current options: *tf* or *tfidf*.
