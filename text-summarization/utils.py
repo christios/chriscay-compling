@@ -92,12 +92,12 @@ def read_doc(sentence_info,
         Note: Disregards sentences with less than `minimum` and more than `maximum` words (30 words
         when not in entity mode)."""
 
-    sw = stopwords.words(lang)
-    sent_id: str = sentence_info._id
-    words_temp: List[Tuple[str, List[str], str]] = []
-    relations: Dict[str, List[str]] = sent_to_token_to_rel.get(sent_id)
-    if entity:
-        if minimum < len(sentence_info.tokens) < maximum:
+    if minimum < len(sentence_info.tokens) < maximum:
+        sw = stopwords.words(lang)
+        sent_id: str = sentence_info._id
+        words_temp: List[Tuple[str, List[str], str]] = []
+        relations: Dict[str, List[str]] = sent_to_token_to_rel.get(sent_id)
+        if entity:
             for t in sentence_info.tokens:
                 if t._id in token_to_mention:
                     m = token_to_mention[t._id]
@@ -107,7 +107,7 @@ def read_doc(sentence_info,
                     if t.deepLemma not in sw and not any(p in t.deepLemma for p in punctuation):
                         words_temp.append((t.deepLemma, relations.get(
                             t._id) if relations else None, None))
-                    
+            # Keep only one token out of the ones which pertains to the same mention
             words_unique_mention: List[Tuple[str, List[str], str]] = []
             for word in words_temp:
                 if word[2] and word[2] not in [w[2] for w in words_unique_mention]:
@@ -116,15 +116,13 @@ def read_doc(sentence_info,
                     words_unique_mention.append(word)
             words: List[Tuple[str, List[str]]] = [w[:-1] for w in words_unique_mention]
         else:
-            return
-    else:
-        if minimum < len(sentence_info.tokens) < maximum:
             words: List[Tuple[str, List[str]]] = [(t.deepLemma, relations.get(t._id) if relations else None)
-                                                  for t in sentence_info.tokens if (t.deepLemma not in sw and
-                                                  not any(p in t.deepLemma for p in punctuation))
-                                                  ]
-        else:
-            return
+                                                    for t in sentence_info.tokens if (t.deepLemma not in sw and
+                                                    not any(p in t.deepLemma for p in punctuation))
+            ]
+    else:
+        return
+    
     return (sent_id, words)
 
 
