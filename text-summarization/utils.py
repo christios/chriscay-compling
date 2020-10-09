@@ -101,12 +101,15 @@ def read_doc(sentence_info,
             for t in sentence_info.tokens:
                 if t._id in token_to_mention:
                     m = token_to_mention[t._id]
-                    words_temp.append((m.mentionOf.stdForm, relations.get(
-                        t._id) if relations else None, m._id))
-                else:
-                    if t.deepLemma not in sw and not any(p in t.deepLemma for p in punctuation):
-                        words_temp.append((t.deepLemma, relations.get(
-                            t._id) if relations else None, None))
+                    words_temp.append((m.mentionOf.stdForm,
+                                       relations.get(t._id) if relations else None,
+                                       m._id)
+                                      )
+                elif t.deepLemma not in sw and not any(p in t.deepLemma for p in punctuation):
+                    words_temp.append((t.deepLemma,
+                                       relations.get(t._id) if relations else None,
+                                       None)
+                    )
             # Keep only one token out of the ones which pertains to the same mention
             words_unique_mention: List[Tuple[str, List[str], str]] = []
             for word in words_temp:
