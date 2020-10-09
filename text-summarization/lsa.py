@@ -169,8 +169,18 @@ if __name__ == "__main__":
         with open(args.evaluation) as fh:
             reference = fh.read()
         rouge = RougeCalculator(stopwords=True, lang='en')
-        rouge_n = rouge.rouge_n(
+        rouge_1 = rouge.rouge_n(
             summary='\n'.join([sent[1] for sent in sentences]),
             references=reference,
-            n=1)
-        print(rouge_n)
+            n=1
+        )
+        rouge_2 = rouge.rouge_n(
+            summary='\n'.join([sent[1] for sent in sentences]),
+            references=reference,
+            n=2
+        )
+        rouge_l = rouge.rouge_l(
+            summary='\n'.join([sent[1] for sent in sentences]),
+            references=reference
+        )
+        print(f'ROUGE1: {rouge_1}', f'ROUGE2: {rouge_2}', f'ROUGEL: {rouge_l}', sep='\n')
