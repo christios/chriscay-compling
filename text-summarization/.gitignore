@@ -7,5 +7,6 @@ sumy_example.py
 *.json
 /cnn-dailymail-master
 *.txt
+!LICENSE-2.0.txt
 *.json
 makefile
