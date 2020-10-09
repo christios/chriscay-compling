@@ -131,7 +131,7 @@ if __name__ == "__main__":
     parser.add_argument('-l', '--length', dest='length',  type=str, default='10,40',
                         help='Length of sentences to consider for the A matrix; format: min_length,max_length.')
     parser.add_argument('-e', '--entity', default=False, action="store_true",
-                        help="Rows of the A matrix will represent extracted entities instead of tokens.")
+                        help="Entities will be included in the computation of the A matrix.")
     parser.add_argument('-rel', '--relations', default=False, action="store_true",
                         help="Relations will be included in the computation of the A matrix. Relations are note supported in Dutch")
     parser.add_argument('-p', '--print', default=False, action="store_true",

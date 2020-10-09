@@ -28,7 +28,7 @@ Note: Code is based on [4] which is in turn based on [2].
   - `-c`, `--cell-type`: Type of values to be used for the cells of the A matrix; current options: *tf* or *tfidf*.
   - `-lang`, `--language`: Language of the article (no format, just the name of the language).
   - `-l`, `--length`: Length of sentences to consider for the A matrix; format: *min_length,max_length*.
-  - `-e`, `--entity`: Rows of the A matrix will represent extracted entities instead of tokens.
+  - `-e`, `--entity`: Relations will be included in the computation of the A matrix.
   - `-rel`, `--relations`: Relations will be included in the computation of the A matrix. Only supported in Czech and English.
   - `-p`, `--print`: Print the chosen sentences to the default output stream.
 
